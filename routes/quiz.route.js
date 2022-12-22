@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const quizRouter = Router();
 
-quizRouter.post("/", (req, res) => {
+quizRouter.get("/", (req, res) => {
   const params = req.query;
   console.log(params);
   let data = {};
