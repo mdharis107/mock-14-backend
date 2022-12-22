@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const { connection } = require("./config/db");
+const { quizRouter } = require("./routes/quiz.route");
+
+
 
 require("dotenv").config();
 
@@ -14,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("This is the HomePage");
 });
 
-// app.use("/quiz")
+app.use("/quiz",quizRouter)
 
 app.listen(PORT, async (req, res) => {
   try {
