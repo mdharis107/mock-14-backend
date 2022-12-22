@@ -1,19 +1,21 @@
 const { Router } = require("express");
-const https = require("https");
-const axios = require("axios")
+// const https = require("https");
+const axios = require("axios");
 
 const quizRouter = Router();
 
 quizRouter.post("/", (req, res) => {
-  const { category, difficulty, amount } = req.body;
-  axios
-    .get(
-      `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`)
-      .then((resp)=>{
-        console.log(resp.data.results)
-        res.send(res.data)
-      })
-
+  const params = req.query;
+  console.log(params);
+  let data = {};
+  try {
+    axios
+      .get("https://opentdb.com/api.php", { params })
+      .then((r) => res.send(r.data.results))
+      .catch((e) => res.status(500).send("Internal error"));
+  } catch (err) {
+    res.status(500).send("Internal Error Occurs");
+  }
 });
 
 module.exports = { quizRouter };
